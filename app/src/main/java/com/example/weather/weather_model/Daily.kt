@@ -1,0 +1,22 @@
+package com.example.weather.weather_model
+
+data class Daily(val moonset: Int = 0,
+                 val rain: Double? = 0.0,
+                 val sunrise: Int = 0,
+                 val temp: Temp,
+                 val moonPhase: Double = 0.0,
+                 val uvi: Double = 0.0,
+                 val moonrise: Int = 0,
+                 val pressure: Int = 0,
+                 val clouds: Int = 0,
+                 val feelsLike: FeelsLike,
+                 val windGust: Double? = 0.0,
+                 val dt: Int = 0,
+                 val pop: Double = 0.0,
+                 val windDeg: Int = 0,
+                 val dewPoint: Double = 0.0,
+                 val sunset: Int = 0,
+                 val weather: List<WeatherItem>?,
+                 val humidity: Int = 0,
+                 val windSpeed: Int = 0,
+                 val snow: Double? = 0.0)

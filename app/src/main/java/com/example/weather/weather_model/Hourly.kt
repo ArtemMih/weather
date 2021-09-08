@@ -2,7 +2,7 @@ package com.example.weather.weather_model
 
 data class Hourly(val temp: Double = 0.0,
                   val visibility: Int = 0,
-                  val uvi: Int = 0,
+                  val uvi: Double = 0.0,
                   val pressure: Int = 0,
                   val clouds: Int = 0,
                   val feelsLike: Double = 0.0,

@@ -12,9 +12,10 @@ import retrofit2.Response
 class MainViewModel(private val repository: MainRepository):  ViewModel() {
 
     val currentWeather = MutableLiveData<Weather>()
+    val userLocation = MutableLiveData<UserLocation>()
 
-    fun getWeatherOneCall() {
-        val response = repository.getWeatherOneCall()
+    fun getWeatherOneCall(lat:Double,lon: Double) {
+        val response = repository.getWeatherOneCall(lat,lon)
         response.enqueue(object : Callback<Weather> {
             override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
                 currentWeather.postValue(response.body())
@@ -26,10 +27,14 @@ class MainViewModel(private val repository: MainRepository):  ViewModel() {
         })
     }
 
+    fun setLocation(lat:Double, lon:Double){
+        userLocation.postValue(UserLocation(lat,lon))
+    }
+
 
 
     init {
-        getWeatherOneCall()
+//        getWeatherOneCall()
 
     }
 

@@ -11,21 +11,25 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginLeft="8dp"
+        android:foregroundGravity="center"
+        android:gravity="center|start"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="TextView" />
 
         <TextView
             android:id="@+id/date2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="TextView" />
+
+        <TextView
+            android:id="@+id/date1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -38,7 +42,7 @@
 
         <ImageView
             android:id="@+id/day_ico"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             app:srcCompat="@drawable/d10" />
 
@@ -46,7 +50,10 @@
             android:id="@+id/dailyTemperatureDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/daily_temperature_night"

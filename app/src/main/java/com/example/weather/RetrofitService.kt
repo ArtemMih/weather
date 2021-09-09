@@ -5,10 +5,12 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RetrofitService {
-    @GET("data/2.5/onecall?lat=55.751244&lon=37.618423&exclude=minutely,alerts&lang=ru&units=metric&appid=0e4aca8f09a5e5fd72b5f642de11f837")
-    fun getWeatherOneCall(): Call<Weather>
+    @GET("data/2.5/onecall?exclude=minutely,alerts&lang=ru&units=metric&appid=0e4aca8f09a5e5fd72b5f642de11f837")
+    fun getWeatherOneCall(@Query("lat") lat: Double, @Query("lon") lon: Double): Call<Weather>
 
     companion object {
         var retrofitService: RetrofitService? = null

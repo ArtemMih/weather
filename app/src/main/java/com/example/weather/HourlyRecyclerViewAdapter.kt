@@ -36,7 +36,7 @@ class HourlyRecyclerViewAdapter: RecyclerView.Adapter<HourlyViewHolder>() {
         else{
             "${weatherHour.temp}°"}
         Glide.with(holder.itemView.context)
-            .load("http://openweathermap.org/img/wn/${weatherHour.weather?.get(0)?.icon}.png")
+            .load("http://openweathermap.org/img/wn/${weatherHour.weather?.get(0)?.icon}@2x.png")
             .into(holder.binding.hourlyIco)
 //        holder.binding.hourlyIco.setImageResource(R.drawable.d10)
     }

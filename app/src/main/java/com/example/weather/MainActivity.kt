@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.weather.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -41,7 +42,10 @@ class MainActivity : AppCompatActivity() {
                 "Ощущается как +${it.current.feelsLike}°"}
             else{
                 "Ощущается как ${it.current.feelsLike}°"}
-            icon.setImageResource(R.drawable.d10) //= R.drawable.ic_launcher_background
+            Glide.with(this)
+                .load("http://openweathermap.org/img/wn/${it.current.weather?.get(0)?.icon}.png")
+                .into(icon)
+//            icon.setImageResource(R.drawable.d10) //= R.drawable.ic_launcher_background
             description.text = it.current.weather?.get(0)?.description ?: "Ясно"
             it.hourly?.let { it1 -> hourlyAdapter.bindWeatherHourly(it1) }
             it.daily?.let { it1 -> dailyAdapter.bindWeatherDaily(it1) }

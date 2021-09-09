@@ -38,8 +38,8 @@
 
         <ImageView
             android:id="@+id/day_ico"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:srcCompat="@drawable/d10" />
 
         <TextView

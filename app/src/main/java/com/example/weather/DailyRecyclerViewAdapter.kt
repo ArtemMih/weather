@@ -1,8 +1,10 @@
 package com.example.weather
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.weather.databinding.DailyRecyclerViewBinding
 
 import com.example.weather.weather_model.Daily
@@ -41,7 +43,10 @@ class DailyRecyclerViewAdapter: RecyclerView.Adapter<DailyViewHolder>()  {
             "+${weatherDay.temp.night}°"}
         else{
             "${weatherDay.temp.night}°"}
-        holder.binding.dayIco.setImageResource(R.drawable.d10)
+        Glide.with(holder.itemView.context)
+            .load("http://openweathermap.org/img/wn/${weatherDay.weather?.get(0)?.icon}.png")
+            .into(holder.binding.dayIco)
+//        holder.binding.dayIco.setImageResource(R.drawable.d10)
     }
 
     override fun getItemCount(): Int {

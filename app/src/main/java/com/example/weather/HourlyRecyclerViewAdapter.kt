@@ -3,8 +3,10 @@ package com.example.weather
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.weather.databinding.HourlyRecyclerViewBinding
 import com.example.weather.weather_model.Hourly
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DateFormat.getTimeInstance
 
 class HourlyRecyclerViewAdapter: RecyclerView.Adapter<HourlyViewHolder>() {
@@ -33,7 +35,10 @@ class HourlyRecyclerViewAdapter: RecyclerView.Adapter<HourlyViewHolder>() {
             "+${weatherHour.temp}°"}
         else{
             "${weatherHour.temp}°"}
-        holder.binding.hourlyIco.setImageResource(R.drawable.d10)
+        Glide.with(holder.itemView.context)
+            .load("http://openweathermap.org/img/wn/${weatherHour.weather?.get(0)?.icon}.png")
+            .into(holder.binding.hourlyIco)
+//        holder.binding.hourlyIco.setImageResource(R.drawable.d10)
     }
 
     override fun getItemCount(): Int {

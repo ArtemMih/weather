@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         gpsIco.setOnClickListener{
             checkGPSPermission()
         }
-        
+
         refresh.setOnClickListener {
             viewModel.setLocation(preference.getDouble("lat",56.1167663),preference.getDouble("lon",47.262782))
         }

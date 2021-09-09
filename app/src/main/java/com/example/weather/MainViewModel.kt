@@ -2,6 +2,7 @@ package com.example.weather
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weather.weather_model.Weather
@@ -13,6 +14,8 @@ class MainViewModel(private val repository: MainRepository):  ViewModel() {
 
     val currentWeather = MutableLiveData<Weather>()
     val userLocation = MutableLiveData<UserLocation>()
+    val fail = MutableLiveData<Boolean>()
+
 
     fun getWeatherOneCall(lat:Double,lon: Double) {
         val response = repository.getWeatherOneCall(lat,lon)
@@ -22,9 +25,13 @@ class MainViewModel(private val repository: MainRepository):  ViewModel() {
 
             }
             override fun onFailure(call: Call<Weather>, t: Throwable) {
-                Log.e("Fail",t.message.toString())
+                fail.postValue(true)
             }
         })
+    }
+
+    fun setWeather(weather: Weather){
+        currentWeather.postValue(weather)
     }
 
     fun setLocation(lat:Double, lon:Double){

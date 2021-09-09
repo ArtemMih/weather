@@ -8,19 +8,16 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class DIalogGPSOrCountry : DialogFragment(){
+class DialogNoInternetConnection : DialogFragment(){
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return activity?.let {
                 val builder = MaterialAlertDialogBuilder(it)
-                builder.setTitle("Выбор города")
-                    .setMessage("Выбрать город вручную или включить GPS?")
+                builder.setTitle("Нет соединения с интернетом")
+                    .setMessage("Произошла ошибка при загрузке данных.\nПроверьте подключение к сети.\nОбновите странуцу.\nБудут показаны данные с прошлой сессии.")
                     .setCancelable(false)
-                    .setPositiveButton("Включить GPS") { dialog, id ->
-                        (activity as MainActivity?)?.checkGPSPermission()
+                    .setPositiveButton("Ок") { dialog, id ->
+                        dialog.cancel()
                     }
-                    .setNegativeButton("Выбрать вручную")
-                        { dialog, id ->
-                        }
                 builder.create()
             } ?: throw IllegalStateException("Activity cannot be null")
         }

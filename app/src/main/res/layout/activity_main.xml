@@ -107,4 +107,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hourlyRecyclerView" />
 
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/city"
+        app:layout_constraintEnd_toStartOf="@+id/city"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/city"
+        app:srcCompat="@drawable/outline_refresh_black_48" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

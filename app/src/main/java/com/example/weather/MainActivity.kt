@@ -8,19 +8,22 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.weather.databinding.ActivityMainBinding
+import com.example.weather.weather_model.Weather
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -85,16 +88,36 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this)
                 .load("http://openweathermap.org/img/wn/${it.current.weather?.get(0)?.icon}@4x.png")
                 .into(icon)
-//            icon.setImageResource(R.drawable.d10) //= R.drawable.ic_launcher_background
             description.text = it.current.weather?.get(0)?.description.toString().replaceFirstChar { chr -> chr.uppercaseChar() }
             it.hourly?.let { it1 -> hourlyAdapter.bindWeatherHourly(it1) }
             it.daily?.let { it1 -> dailyAdapter.bindWeatherDaily(it1) }
+            val prefsEditor = preference.edit()
+            val gson = Gson()
+            val json = gson.toJson(it)
+            prefsEditor.putString("weather", json)
+            prefsEditor.apply()
+        })
+
+        viewModel.fail.observe(this, Observer {
+            val gson = Gson()
+            val json = preference.getString("weather", "")
+            val weather: Weather = gson.fromJson(json, Weather::class.java)
+            viewModel.setWeather(weather)
+            val manager: FragmentManager = supportFragmentManager
+            val myDialogFragment = DialogNoInternetConnection()
+            myDialogFragment.show(manager, "myDialog")
+//            Toast.makeText(this, "Нет соединения с интернетом",
+//                Toast.LENGTH_LONG).show()
         })
 
         viewModel.setLocation(preference.getDouble("lat",56.1167663),preference.getDouble("lon",47.262782))
 
         gpsIco.setOnClickListener{
             checkGPSPermission()
+        }
+        
+        refresh.setOnClickListener {
+            viewModel.setLocation(preference.getDouble("lat",56.1167663),preference.getDouble("lon",47.262782))
         }
     }
 

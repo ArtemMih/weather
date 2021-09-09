@@ -3,13 +3,11 @@ package com.example.weather
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.weather.databinding.RecyclerViewHourlyBinding
+import com.example.weather.databinding.HourlyRecyclerViewBinding
 import com.example.weather.weather_model.Hourly
-import com.example.weather.weather_model.Weather
 import java.text.DateFormat.getTimeInstance
 
-class MainRecyclerViewAdapter: RecyclerView.Adapter<MainViewHolder>() {
+class HourlyRecyclerViewAdapter: RecyclerView.Adapter<HourlyViewHolder>() {
 
     var weatherHourly = mutableListOf<Hourly>()
 
@@ -18,14 +16,14 @@ class MainRecyclerViewAdapter: RecyclerView.Adapter<MainViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = RecyclerViewHourlyBinding.inflate(inflater, parent, false)
-        return MainViewHolder(binding)
+        val binding = HourlyRecyclerViewBinding.inflate(inflater, parent, false)
+        return HourlyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
         val format =  getTimeInstance()
 //        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 //        val date = java.util.Date(1532358895 * 1000)
@@ -44,5 +42,5 @@ class MainRecyclerViewAdapter: RecyclerView.Adapter<MainViewHolder>() {
 
 }
 
-class MainViewHolder(val binding: RecyclerViewHourlyBinding) : RecyclerView.ViewHolder(binding.root) {
+class HourlyViewHolder(val binding: HourlyRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
 }

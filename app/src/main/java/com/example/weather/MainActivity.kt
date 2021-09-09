@@ -1,12 +1,9 @@
 package com.example.weather
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
 
     private val retrofitService = RetrofitService.getInstance()
-    val hourlyAdapter = MainRecyclerViewAdapter()
+    val hourlyAdapter = HourlyRecyclerViewAdapter()
+    val dailyAdapter = DailyRecyclerViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelFactory(MainRepository(retrofitService))
         ).get(MainViewModel::class.java)
 
-        binding.recyclerViewHourly.adapter = hourlyAdapter
+        binding.hourlyRecyclerView.adapter = hourlyAdapter
+        binding.dailyRecyclerView.adapter = dailyAdapter
 //        binding.recyclerViewHourly.layoutManager = LinearLayoutManager(this)
 
         viewModel.currentWeather.observe(this, Observer {
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             icon.setImageResource(R.drawable.d10) //= R.drawable.ic_launcher_background
             description.text = it.current.weather?.get(0)?.description ?: "Ясно"
             it.hourly?.let { it1 -> hourlyAdapter.bindWeatherHourly(it1) }
+            it.daily?.let { it1 -> dailyAdapter.bindWeatherDaily(it1) }
         })
     }
 }

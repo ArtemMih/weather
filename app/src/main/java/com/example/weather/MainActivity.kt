@@ -11,6 +11,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,12 +28,15 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),CityChoose.CityChooseListener {
+
     fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
         putLong(key, java.lang.Double.doubleToRawLongBits(double))
 
     fun SharedPreferences.getDouble(key: String, default: Double) =
         java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
+
+
 
 
     private lateinit var locationManager: LocationManager
@@ -49,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setContentView(binding.root)
@@ -120,6 +123,12 @@ class MainActivity : AppCompatActivity() {
 
         refresh.setOnClickListener {
             viewModel.setLocation(preference.getDouble("lat",56.1167663),preference.getDouble("lon",47.262782))
+        }
+
+        city.setOnClickListener {
+            val manager: FragmentManager = supportFragmentManager
+            val myDialogFragment = CityChoose()
+            myDialogFragment.show(manager, "myDialog")
         }
     }
 
@@ -197,6 +206,17 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+    }
+
+    override fun citychosen(city: String) {
+        if  (city != "") {
+            val cityGeocoder = Geocoder(
+                this,
+                Locale("ru")
+            ).getFromLocationName(city, 1)[0]
+            viewModel.getWeatherOneCall(cityGeocoder.latitude, cityGeocoder.longitude)
+            this.city.text = city
         }
     }
 

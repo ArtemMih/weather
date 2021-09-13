@@ -101,8 +101,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.fail.observe(this, Observer {
             val gson = Gson()
             val json = preference.getString("weather", "")
-            val weather: Weather = gson.fromJson(json, Weather::class.java)
-            viewModel.setWeather(weather)
+            if  (json != "") {
+                val weather: Weather = gson.fromJson(json, Weather::class.java)
+                viewModel.setWeather(weather)
+            }
             val manager: FragmentManager = supportFragmentManager
             val myDialogFragment = DialogNoInternetConnection()
             myDialogFragment.show(manager, "myDialog")

@@ -13,7 +13,7 @@ class DialogNoInternetConnection : DialogFragment(){
             return activity?.let {
                 val builder = MaterialAlertDialogBuilder(it)
                 builder.setTitle("Нет соединения с интернетом")
-                    .setMessage("Произошла ошибка при загрузке данных.\nПроверьте подключение к сети.\nОбновите странуцу.\nБудут показаны данные с прошлой сессии.")
+                    .setMessage("Произошла ошибка при загрузке данных.\nПроверьте подключение к сети.\nОбновите страницу.\nБудут показаны данные с прошлой сессии.")
                     .setCancelable(false)
                     .setPositiveButton("Ок") { dialog, id ->
                         dialog.cancel()

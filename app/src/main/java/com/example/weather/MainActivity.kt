@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity(),CityChoose.CityChooseListener {
         }
     }
 
-    override fun citychosen(city: String) {
+    override fun cityChosen(city: String) {
         if  (city != "") {
             val cityGeocoder = Geocoder(
                 this,
